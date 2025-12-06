@@ -30,7 +30,7 @@ const FichaTecnicaSection = () => {
     {
       icon: Factory,
       label: 'Producción',
-      value: '5.000 t/mes (cielo abierto) | 800-1.200 t/mes (vetas)',
+      value: '1.000 t/mes actual | Potencial: 5.000 t/mes (cielo abierto) | 800-1.200 t/mes (vetas)',
     },
     {
       icon: Calendar,

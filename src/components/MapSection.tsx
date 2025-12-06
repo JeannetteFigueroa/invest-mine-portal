@@ -16,68 +16,115 @@ const MapSection = () => {
   const mapInstanceRef = useRef<L.Map | null>(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
-  // Approximate coordinates for the Cortadera sector, Copiapó region
-  const projectCoords: [number, number] = [-27.3666, -70.3333];
-  const copiapoCoords: [number, number] = [-27.3667, -70.3314];
+  // Coordinates
+  const copiapoCoords: [number, number] = [-27.3667, -70.3314]; // Copiapó (inicio)
+  const projectCoords: [number, number] = [-27.3666, -70.3333]; // Proyecto (destino aproximado)
+  
+  // Route waypoints along the international route from Copiapó
+  const routeCoords: [number, number][] = [
+    [-27.3667, -70.3314], // Copiapó
+    [-27.3500, -70.2800], // Punto intermedio 1
+    [-27.3400, -70.2500], // Punto intermedio 2
+    [-27.3666, -70.3333], // Destino - Cortadera
+  ];
 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
-    // Create custom gold marker icon
-    const goldIcon = L.divIcon({
-      html: `
-        <div style="
-          width: 40px;
-          height: 40px;
-          background: linear-gradient(135deg, hsl(38 70% 50%), hsl(25 65% 45%));
-          border-radius: 50% 50% 50% 0;
-          transform: rotate(-45deg);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 4px 20px rgba(196, 147, 64, 0.4);
-        ">
-          <svg style="transform: rotate(45deg); width: 20px; height: 20px; color: hsl(220 20% 8%);" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2L8 6H3V8L5 10V20H19V10L21 8V6H16L12 2ZM12 4.83L14.17 7H9.83L12 4.83ZM18 18H6V10.83L4 8.83V8H20V8.83L18 10.83V18Z"/>
-          </svg>
-        </div>
-      `,
-      className: '',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-      popupAnchor: [0, -40],
-    });
+    // Center map between both points
+    const centerLat = (copiapoCoords[0] + projectCoords[0]) / 2;
+    const centerLng = (copiapoCoords[1] + projectCoords[1]) / 2;
 
     const map = L.map(mapRef.current, {
-      center: projectCoords,
-      zoom: 10,
+      center: [centerLat, centerLng],
+      zoom: 11,
       scrollWheelZoom: false,
     });
 
-    // Add OpenStreetMap tiles with dark theme
+    // Add OpenStreetMap tiles with dark theme (no custom markers, clean look)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
       maxZoom: 19,
     }).addTo(map);
 
-    // Add project marker
-    const projectMarker = L.marker(projectCoords, { icon: goldIcon }).addTo(map);
-    projectMarker.bindPopup(`
-      <div style="font-family: 'Inter', sans-serif; padding: 8px;">
-        <h3 style="font-weight: 600; margin-bottom: 4px; color: hsl(38 70% 50%);">Cumbres de Cortadera</h3>
-        <p style="font-size: 12px; margin: 0; color: hsl(45 20% 85%);">Sector Cortadera, Copiapó</p>
-        <p style="font-size: 12px; margin-top: 4px; color: hsl(220 10% 55%);">Altitud: ~2.800 - 2.900 m.s.n.m.</p>
+    // Custom start marker (green)
+    const startIcon = L.divIcon({
+      html: `
+        <div style="
+          width: 32px;
+          height: 32px;
+          background: #22c55e;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 10px rgba(34, 197, 94, 0.5);
+          border: 3px solid #fff;
+        ">
+          <span style="color: white; font-weight: bold; font-size: 14px;">A</span>
+        </div>
+      `,
+      className: '',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -16],
+    });
+
+    // Custom end marker (red)
+    const endIcon = L.divIcon({
+      html: `
+        <div style="
+          width: 32px;
+          height: 32px;
+          background: #ef4444;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 10px rgba(239, 68, 68, 0.5);
+          border: 3px solid #fff;
+        ">
+          <span style="color: white; font-weight: bold; font-size: 14px;">B</span>
+        </div>
+      `,
+      className: '',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -16],
+    });
+
+    // Add start marker (Copiapó)
+    const startMarker = L.marker(copiapoCoords, { icon: startIcon }).addTo(map);
+    startMarker.bindPopup(`
+      <div style="font-family: 'Inter', sans-serif; padding: 8px; min-width: 180px;">
+        <h3 style="font-weight: 600; margin-bottom: 4px; color: #22c55e;">🚀 INICIO - Copiapó</h3>
+        <p style="font-size: 12px; margin: 0; color: #6b7280;">Ciudad de partida</p>
+        <p style="font-size: 11px; margin-top: 4px; color: #9ca3af;">Ruta internacional hacia Cortadera</p>
       </div>
     `);
 
-    // Add Copiapó marker for reference
-    const copiapoMarker = L.marker(copiapoCoords).addTo(map);
-    copiapoMarker.bindPopup(`
-      <div style="font-family: 'Inter', sans-serif; padding: 8px;">
-        <h3 style="font-weight: 600; margin-bottom: 4px; color: hsl(45 20% 95%);">Copiapó</h3>
-        <p style="font-size: 12px; margin: 0; color: hsl(220 10% 55%);">Ciudad de referencia</p>
+    // Add end marker (Project)
+    const endMarker = L.marker(projectCoords, { icon: endIcon }).addTo(map);
+    endMarker.bindPopup(`
+      <div style="font-family: 'Inter', sans-serif; padding: 8px; min-width: 200px;">
+        <h3 style="font-weight: 600; margin-bottom: 4px; color: #ef4444;">📍 DESTINO - Cumbres de Cortadera</h3>
+        <p style="font-size: 12px; margin: 0; color: #6b7280;">Sector Cortadera, Copiapó</p>
+        <p style="font-size: 11px; margin-top: 4px; color: #9ca3af;">Altitud: ~2.800 - 2.900 m.s.n.m.</p>
+        <p style="font-size: 11px; margin-top: 2px; color: #9ca3af;">Coordenadas: UTM WGS84 / PSAD56</p>
       </div>
     `);
+
+    // Draw route line
+    const routeLine = L.polyline(routeCoords, {
+      color: '#3b82f6',
+      weight: 4,
+      opacity: 0.8,
+      dashArray: '10, 10',
+    }).addTo(map);
+
+    // Fit map to show both markers
+    const bounds = L.latLngBounds([copiapoCoords, projectCoords]);
+    map.fitBounds(bounds, { padding: [50, 50] });
 
     mapInstanceRef.current = map;
     setIsMapLoaded(true);
@@ -92,7 +139,7 @@ const MapSection = () => {
     {
       icon: Navigation,
       title: 'Ruta de Acceso',
-      description: 'Ruta internacional desde Copiapó',
+      description: 'Ruta internacional desde Copiapó hacia Cortadera',
     },
     {
       icon: Clock,
@@ -124,6 +171,27 @@ const MapSection = () => {
         </div>
 
         <div className="max-w-6xl mx-auto">
+          {/* Route Info Box */}
+          <div className="mb-6 p-4 rounded-xl border border-primary/30 bg-primary/5">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">A</span>
+                </div>
+                <span className="text-foreground font-medium">Copiapó (Inicio)</span>
+              </div>
+              <div className="hidden sm:block text-muted-foreground">→</div>
+              <div className="text-muted-foreground text-sm">Ruta Internacional (~1h 30min)</div>
+              <div className="hidden sm:block text-muted-foreground">→</div>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">B</span>
+                </div>
+                <span className="text-foreground font-medium">Cumbres de Cortadera (Destino)</span>
+              </div>
+            </div>
+          </div>
+
           {/* Map Container */}
           <div className="glass-card rounded-2xl overflow-hidden mb-8">
             <div
@@ -154,7 +222,7 @@ const MapSection = () => {
           {/* Additional Note */}
           <div className="mt-8 p-6 rounded-xl border border-primary/30 bg-primary/5 text-center">
             <p className="text-sm text-muted-foreground">
-              <span className="text-primary font-medium">Campamento:</span> Coordenadas del punto de interés y campamento incluidas en la documentación técnica adjunta.
+              <span className="text-primary font-medium">Campamento:</span> Coordenadas del punto de interés y campamento incluidas en la documentación técnica adjunta (UTM WGS84 / PSAD56).
             </p>
           </div>
         </div>
