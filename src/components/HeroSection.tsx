@@ -48,7 +48,8 @@ const HeroSection = () => {
             <div className="glass-card p-4 rounded-lg">
               <TrendingUp className="w-5 h-5 text-primary mx-auto mb-2" />
               <p className="text-sm text-muted-foreground">Producción</p>
-              <p className="font-semibold text-foreground">5,000 t/mes</p>
+              <p className="font-semibold text-foreground">1,000 t/mes</p>
+              <p className="text-xs text-primary">Potencial: 5,000 t/mes</p>
             </div>
             <div className="glass-card p-4 rounded-lg">
               <Calendar className="w-5 h-5 text-primary mx-auto mb-2" />
@@ -61,9 +62,6 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.8s' }}>
             <Button variant="hero" asChild>
               <a href="#contacto">Solicitar Reunión</a>
-            </Button>
-            <Button variant="heroOutline" asChild>
-              <a href="#resumen">Conocer Más</a>
             </Button>
           </div>
         </div>
