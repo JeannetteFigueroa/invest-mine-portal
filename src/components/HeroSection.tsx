@@ -65,14 +65,6 @@ const HeroSection = () => {
             </Button>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <a href="#resumen" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-            <span className="text-xs font-medium">Desplazar</span>
-            <ArrowDown className="w-5 h-5" />
-          </a>
-        </div>
       </div>
     </section>
   );

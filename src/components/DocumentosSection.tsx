@@ -14,50 +14,46 @@ interface Document {
   description: string;
   type: 'legal' | 'technical' | 'financial';
   icon: typeof FileText;
+  file: string;         // ruta del archivo
+  format: 'pdf';
 }
 
 const documents: Document[] = [
   {
-    id: 'inscripcion',
-    title: 'Inscripción de Concesiones',
-    description: 'Cumbre II 1-10 y Virgen de Andacollo Tres 1-10',
-    type: 'legal',
-    icon: FileCheck,
-  },
-  {
-    id: 'certificado',
-    title: 'Certificados de Dominio',
-    description: 'Documentación registral vigente',
-    type: 'legal',
-    icon: Scale,
-  },
-  {
-    id: 'informe-tecnico',
-    title: 'Informe Técnico Geológico',
-    description: 'Estudios de mineralización y mapeo',
+    id: 'informe_ejecutivo',
+    title: 'Informe Ejecutivo',
+    description: 'Informe ejecutivo que resume la geología, estructuras mineralizadas y evaluación técnica del Proyecto Cumbres de Cortadera',
     type: 'technical',
     icon: FileText,
+    file: '/documents/informe_ejecutivo.pdf',
+    format: 'pdf',
   },
   {
-    id: 'plan-explotacion',
-    title: 'Plan de Explotación',
-    description: 'Metodología y proyecciones operativas',
+    id: 'flota_camiones',
+    title: 'Flota de Camiones y Equipos',
+    description: 'Lista de flota de camiones y equipos',
     type: 'technical',
     icon: FileText,
+    file: '/documents/flota_camiones.pdf',
+    format: 'pdf',
   },
   {
-    id: 'plan-cierre',
-    title: 'Declaración Plan de Cierre',
-    description: 'Conforme a Ley N°20.551',
-    type: 'legal',
-    icon: Lock,
+    id: 'proyecto_explotacion',
+    title: 'Proyecto de Explotación',
+    description: 'Informe detallado del proyecto de explotación minera',
+    type: 'technical',
+    icon: FileText,
+    file: '/documents/proyecto_explotacion.pdf',
+    format: 'pdf',
   },
   {
-    id: 'resoluciones',
-    title: 'Resoluciones SERNAGEOMIN',
-    description: 'Autorizaciones aplicables',
-    type: 'legal',
-    icon: FileCheck,
+    id: 'plan_cierre',
+    title: 'Formulario del Plan de Cierre',
+    description: 'Formulario para solicitar el plan de cierre del proyecto',
+    type: 'technical',
+    icon: FileText,
+    file: '/documents/plan_cierre.pdf',
+    format: 'pdf',
   },
 ];
 
@@ -66,12 +62,8 @@ const DocumentosSection = () => {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'legal':
-        return 'bg-primary/20 text-primary';
       case 'technical':
         return 'bg-accent/20 text-accent';
-      case 'financial':
-        return 'bg-gold-light/20 text-gold-light';
       default:
         return 'bg-secondary text-secondary-foreground';
     }
@@ -79,25 +71,22 @@ const DocumentosSection = () => {
 
   const getTypeLabel = (type: string) => {
     switch (type) {
-      case 'legal':
-        return 'Legal';
       case 'technical':
         return 'Técnico';
-      case 'financial':
-        return 'Financiero';
       default:
         return type;
     }
   };
 
   const handleDownload = (doc: Document) => {
-    // Simulate download - in production this would trigger actual file download
+    if (!doc.file) return;
+
     const link = document.createElement('a');
-    link.href = '#';
-    link.download = `${doc.id}.pdf`;
-    // For demo purposes, show a toast or alert
-    alert(`Descargando: ${doc.title}\n\nNota: En producción, este botón descargará el archivo PDF real.`);
+    link.href = doc.file;
+    link.download = doc.file.split('/').pop()!; // mantiene la extensión correcta
+    link.click();
   };
+
 
   const handlePreview = (doc: Document) => {
     setPreviewDoc(doc);
@@ -180,27 +169,47 @@ const DocumentosSection = () => {
 
         {/* Preview Dialog */}
         <Dialog open={!!previewDoc} onOpenChange={() => setPreviewDoc(null)}>
-          <DialogContent className="max-w-2xl bg-card border-border">
+          <DialogContent className="max-w-3xl bg-card border-border">
             <DialogHeader>
-              <DialogTitle className="font-display text-xl">{previewDoc?.title}</DialogTitle>
+              <DialogTitle className="font-display text-xl">
+                {previewDoc?.title}
+              </DialogTitle>
             </DialogHeader>
-            <div className="p-6 bg-secondary/50 rounded-lg min-h-[300px] flex items-center justify-center">
-              <div className="text-center">
-                <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground mb-4">
-                  Vista previa del documento: <span className="text-foreground font-medium">{previewDoc?.title}</span>
-                </p>
-                <p className="text-sm text-muted-foreground mb-6">
-                  {previewDoc?.description}
-                </p>
-                <Button variant="gold" onClick={() => previewDoc && handleDownload(previewDoc)}>
-                  <Download className="w-4 h-4 mr-2" />
-                  Descargar PDF
-                </Button>
+
+            {/* Vista previa real SOLO PDF */}
+            {previewDoc && (
+              <div className="w-full h-[65vh] mt-4 border rounded-lg overflow-hidden">
+
+                {/* PDF */}
+                {previewDoc.format === "pdf" && (
+                  <iframe
+                    src={previewDoc.file}
+                    className="w-full h-full"
+                  />
+                )}
+
+                {/* Cualquier otro formato (mensaje de error) */}
+                {previewDoc.format !== "pdf" && (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <p className="text-muted-foreground">
+                      Solo se admite vista previa de archivos PDF.
+                    </p>
+                  </div>
+                )}
+
               </div>
+            )}
+
+            {/* Botón Descargar */}
+            <div className="flex justify-end mt-4">
+              <Button variant="gold" onClick={() => previewDoc && handleDownload(previewDoc)}>
+                <Download className="w-4 h-4 mr-2" />
+                Descargar
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
+
       </div>
     </section>
   );
