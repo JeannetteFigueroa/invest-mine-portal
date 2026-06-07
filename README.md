@@ -118,29 +118,29 @@ Canales de comunicación para:
 git clone <URL_DEL_REPOSITORIO>
 
 ```
-##Ingresar al proyecto
+## Ingresar al proyecto
 ```bash
 cd invest-mine-portal
 ```
-##Instalar dependencias
+## Instalar dependencias
 ```bash
 npm install
 ```
-##Ejecutar entorno de desarrollo
+## Ejecutar entorno de desarrollo
 ```bash
 npm run dev
 ```
 
-###La aplicación estará disponible en:
+### La aplicación estará disponible en:
 ```bash
 http://localhost:5173
 ```
-##Compilación para Producción
+## Compilación para Producción
 ```bash
 npm run build
 ```
 
-##Los archivos generados quedarán en la carpeta:
+## Los archivos generados quedarán en la carpeta:
 ```bash
 dist/
 Estructura del Proyecto
