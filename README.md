@@ -173,8 +173,6 @@ La plataforma fue creada como un portal web de presentación para el proyecto mi
 
 ## Licencia
 
-## Licencia
-
 Este proyecto fue desarrollado por **Jeannette Figueroa Díaz**, estudiante de **Ingeniería en informática en Duoc UC**, con apoyo de herramientas de inteligencia artificial durante su proceso de diseño y desarrollo.
 
 La plataforma fue creada como apoyo académico para un grupo de estudiantes de **Ingeniería Civil en Minas de la Universidad Santo Tomás**, con el objetivo de presentar de forma digital información relacionada con el proyecto minero **Cumbres de Cortadera**.
