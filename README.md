@@ -1,73 +1,186 @@
-# Welcome to your Lovable project
+# Invest Mine Portal
 
-## Project info
+Portal web corporativo desarrollado para la presentación del proyecto minero **Cumbres de Cortadera**, permitiendo a potenciales inversionistas acceder a información técnica, geológica, operacional y documental del proyecto de manera centralizada e intuitiva.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Sitio Web
 
-## How can I edit this code?
+🌐 **Demo Online:**  
+https://invest-mine-portal.vercel.app/
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## Descripción
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+Invest Mine Portal es una plataforma web diseñada para exhibir información relevante de un proyecto minero, facilitando el análisis preliminar por parte de inversionistas, socios estratégicos y entidades interesadas.
 
-Changes made via Lovable will be committed automatically to this repo.
+La aplicación reúne antecedentes técnicos, documentación oficial, ubicación geográfica, modelos de inversión y mecanismos de contacto en una única interfaz moderna y responsiva.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Funcionalidades Principales
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- ✅ Resumen ejecutivo del proyecto.
+- ✅ Ficha técnica con antecedentes operacionales.
+- ✅ Información geológica y métodos de explotación.
+- ✅ Visualización geográfica mediante mapas interactivos.
+- ✅ Descarga y consulta de documentos técnicos.
+- ✅ Información sobre plan de cierre y gestión ambiental.
+- ✅ Formularios de contacto para inversionistas.
+- ✅ Diseño responsive para dispositivos móviles y escritorio.
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Módulos del Portal
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Resumen Ejecutivo
+Presenta una visión general del proyecto, sus oportunidades de desarrollo y modelos de inversión disponibles.
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Ficha Técnica
+Incluye información relevante como:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+- Nombre del proyecto
+- Titular minero
+- Ubicación
+- Producción estimada
+- Vida útil proyectada
+- Concesiones mineras
+
+### Geología y Explotación
+Describe:
+
+- Características geológicas del yacimiento
+- Métodos de explotación
+- Procesos operacionales
+- Infraestructura minera
+
+### Mapa Interactivo
+Permite visualizar:
+
+- Ubicación del proyecto
+- Coordenadas geográficas
+- Ruta de acceso
+- Información territorial relevante
+
+### Centro Documental
+Acceso a documentación técnica:
+
+- Informe Ejecutivo
+- Proyecto de Explotación
+- Flota de Equipos
+- Plan de Cierre
+
+### Contacto para Inversión
+Canales de comunicación para:
+
+- Solicitud de reuniones
+- Presentación de propuestas de inversión
+- Consultas técnicas y comerciales
+
+---
+
+## Tecnologías Utilizadas
+
+### Frontend
+
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- shadcn/ui
+- React Router DOM
+- TanStack Query
+
+### Mapas y Geolocalización
+
+- Leaflet
+- React Leaflet
+- Proj4
+
+### UI y Experiencia de Usuario
+
+- Lucide React
+- Radix UI
+- Sonner
+- React Hook Form
+
+---
+
+## Instalación Local
+
+### Requisitos
+
+- Node.js 18 o superior
+- npm
+
+### Clonar repositorio
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+
+```
+##Ingresar al proyecto
+```bash
+cd invest-mine-portal
+```
+##Instalar dependencias
+```bash
+npm install
+```
+##Ejecutar entorno de desarrollo
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+###La aplicación estará disponible en:
+```bash
+http://localhost:5173
+```
+##Compilación para Producción
+```bash
+npm run build
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+##Los archivos generados quedarán en la carpeta:
+```bash
+dist/
+Estructura del Proyecto
+src/
+│
+├── components/
+│   ├── HeroSection
+│   ├── ResumenSection
+│   ├── FichaTecnicaSection
+│   ├── GeologiaSection
+│   ├── MapSection
+│   ├── DocumentosSection
+│   ├── PlanCierreSection
+│   └── ContactoSection
+│
+├── pages/
+├── hooks/
+├── assets/
+└── App.tsx
+```
+## Despliegue
+La aplicación se encuentra desplegada en Vercel:
+https://invest-mine-portal.vercel.app/
 
-**Use GitHub Codespaces**
+## Autor
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Desarrollado por **Jeannette Figueroa Díaz** estudiante de **Duoc UC**, con apoyo de herramientas de inteligencia artificial como **Lovable**, como parte de un proyecto académico solicitado por estudiantes de la carrera de **Ingeniería Civil en Minas** en la **Universidad Santo Tomás**.
 
-## What technologies are used for this project?
+La plataforma fue creada como un portal web de presentación para el proyecto minero **Cumbres de Cortadera**, con el objetivo de centralizar información técnica, geológica, operacional y documental orientada a potenciales inversionistas y partes interesadas.
 
-This project is built with:
+## Licencia
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Licencia
 
-## How can I deploy this project?
+Este proyecto fue desarrollado por **Jeannette Figueroa Díaz**, estudiante de **Ingeniería en informática en Duoc UC**, con apoyo de herramientas de inteligencia artificial durante su proceso de diseño y desarrollo.
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+La plataforma fue creada como apoyo académico para un grupo de estudiantes de **Ingeniería Civil en Minas de la Universidad Santo Tomás**, con el objetivo de presentar de forma digital información relacionada con el proyecto minero **Cumbres de Cortadera**.
 
-## Can I connect a custom domain to my Lovable project?
+El repositorio se publica con fines educativos, demostrativos y de portafolio profesional. La información, documentación, imágenes y datos utilizados forman parte de un contexto académico y no constituyen asesoría técnica, financiera ni minera.
 
-Yes, you can!
+© 2026 Jeannette Figueroa Díaz. Todos los derechos reservados.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Se permite la visualización y consulta del código fuente con fines educativos y de aprendizaje. No se autoriza la reproducción comercial, redistribución o utilización total o parcial del proyecto sin autorización previa de la autora.
